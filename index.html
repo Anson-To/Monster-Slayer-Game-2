@@ -37,7 +37,9 @@
             </section>
             <section id="controls">
                 <button @click="attack()">ATTACK</button>
-                <button @click="spAttack()">SPECIAL ATTACK</button>
+                <button :disabled="spAvailable" @click="spAttack()">
+                    SPECIAL ATTACK
+                </button>
                 <button @click="heal()">HEAL</button>
                 <button @click="surrender()">SURRENDER</button>
             </section>
