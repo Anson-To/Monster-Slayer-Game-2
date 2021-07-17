@@ -35,7 +35,12 @@
                     ></div>
                 </div>
             </section>
-            <section id="controls">
+            <section class="container" v-if="winning!=''">
+                <h2>Game Over</h2>
+                <h3>{{winning}}</h3>
+                <button @click="newGame">Start again?</button>
+            </section>
+            <section id="controls" v-else>
                 <button @click="attack()">ATTACK</button>
                 <button :disabled="spAvailable" @click="spAttack()">
                     SPECIAL ATTACK

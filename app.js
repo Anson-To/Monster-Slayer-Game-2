@@ -4,6 +4,7 @@ const app = Vue.createApp({
             monsterHealth: 100,
             playerHealth: 100,
             currentRounds: 0,
+            winning: "",
         };
     },
     methods: {
@@ -15,19 +16,32 @@ const app = Vue.createApp({
             this.currentRounds++;
             //Player hits the monster
             const damage = this.damageCal(3, 10);
-            this.monsterHealth -= damage;
+            if (this.monsterHealth - damage > 0) {
+                this.monsterHealth -= damage;
+            } else {
+                this.monsterHealth = 0;
+            }
+
             // Monster strikes back
             this.attackPlayer();
         },
         attackPlayer() {
             const damage = this.damageCal(4, 11);
-            this.playerHealth -= damage;
+            if (this.playerHealth - damage > 0) {
+                this.playerHealth -= damage;
+            } else {
+                this.playerHealth = 0;
+            }
         },
         spAttack() {
             this.currentRounds++;
             //Player hits the monster
             const damage = this.damageCal(10, 20);
-            this.monsterHealth -= damage;
+            if (this.monsterHealth - damage > 0) {
+                this.monsterHealth -= damage;
+            } else {
+                this.monsterHealth = 0;
+            }
             // Monster strikes back
             this.attackPlayer();
         },
@@ -41,7 +55,15 @@ const app = Vue.createApp({
             }
             this.attackPlayer();
         },
-        surrender() {},
+        surrender() {
+            this.winning = "Monster Wins";
+        },
+        newGame() {
+            this.monsterHealth = 100;
+            this.playerHealth = 100;
+            this.currentRounds = 0;
+            this.winning = "";
+        },
     },
     computed: {
         monsterHealthUpdate() {
@@ -53,6 +75,28 @@ const app = Vue.createApp({
         spAvailable() {
             // Available every 4 rounds
             return this.currentRounds % 4 !== 0;
+        },
+    },
+    watch: {
+        monsterHealth(value) {
+            // Draw
+            if (value <= 0 && this.playerHealth <= 0) {
+                this.winning = "Draw";
+            }
+            // Monsters loses
+            else if (value <= 0) {
+                this.winning = "Player Wins";
+            }
+        },
+        playerHealth(value) {
+            // Draw
+            if (value <= 0 && this.monsterHealth <= 0) {
+                this.winning = "Draw";
+            }
+            // Player loses
+            else if (value <= 0) {
+                this.winning = "Monster Wins";
+            }
         },
     },
 });
