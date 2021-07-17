@@ -5,6 +5,8 @@ const app = Vue.createApp({
             playerHealth: 100,
             currentRounds: 0,
             winning: "",
+            logs: [],
+            // playerMessage: "true",
         };
     },
     methods: {
@@ -21,7 +23,7 @@ const app = Vue.createApp({
             } else {
                 this.monsterHealth = 0;
             }
-
+            this.addLogs("Player", "attacks", damage);
             // Monster strikes back
             this.attackPlayer();
         },
@@ -32,6 +34,7 @@ const app = Vue.createApp({
             } else {
                 this.playerHealth = 0;
             }
+            this.addLogs("Monster", "attacks", damage);
         },
         spAttack() {
             this.currentRounds++;
@@ -42,6 +45,7 @@ const app = Vue.createApp({
             } else {
                 this.monsterHealth = 0;
             }
+            this.addLogs("Player", " special-attacks", damage);
             // Monster strikes back
             this.attackPlayer();
         },
@@ -53,6 +57,7 @@ const app = Vue.createApp({
             } else {
                 this.playerHealth += blood;
             }
+            this.addLogs("Player", "heals", blood);
             this.attackPlayer();
         },
         surrender() {
@@ -63,6 +68,14 @@ const app = Vue.createApp({
             this.playerHealth = 100;
             this.currentRounds = 0;
             this.winning = "";
+            this.logs = [];
+        },
+        addLogs(who, action, value) {
+            this.logs.unshift({
+                who: who,
+                action: action,
+                value: value,
+            });
         },
     },
     computed: {

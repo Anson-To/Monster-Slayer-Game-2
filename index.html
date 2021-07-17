@@ -50,7 +50,27 @@
             </section>
             <section id="log" class="container">
                 <h2>Battle Log</h2>
-                <ul></ul>
+                <ul>
+                    <li
+                        v-for="
+                        log in logs"
+                    >
+                        <span v-if="log.who=='Player'" class="log--player">
+                            {{log.who}} {{}}
+                        </span>
+                        <span v-if="log.who=='Monster'" class="log--monster">
+                            {{log.who}} {{}}
+                        </span>
+                        <span v-if="log.action=='heals'">
+                            {{log.action}}
+                            <span class="log--heal">{{log.value}}</span>
+                        </span>
+                        <span v-if="log.action!='heals'">
+                            {{log.action}}
+                            <span class="log--damage">{{log.value}}</span>
+                        </span>
+                    </li>
+                </ul>
             </section>
         </div>
     </body>
