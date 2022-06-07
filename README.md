@@ -1,6 +1,11 @@
 # Monster-Slayer-Game-2
-Vue Basic practice 
-<br/>
+## Goal 
+Vue Basic Pratcice
+
+## Project Link
 Please visit: https://stupefied-booth-d35b8e.netlify.app/
-<br/>
-Update: Added SASS as a better practice
+
+## Update
+<ul>
+  <li>Added SASS as a better practice</li>
+</ul>
